@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is Really Stopping You From Reaching Stable Income?</title>
+<style>
+  /* ============================================================
+     NOTION LINKS — replace these five values later.
+     ============================================================ */
+  :root{
+    color-scheme:dark only;
+
+    --bg:#000000;          /* page background (dark) */
+    --ink:#ffffff;         /* main text on dark bg */
+    --ink-soft:#b8b2a8;    /* muted text on dark bg */
+    --card:#ffffff;        /* answer/option cards stay white */
+    --card-ink:#111111;    /* text inside white cards */
+    --card-ink-soft:#5c5650;
+    --beige:#f3ece2;
+    --beige-deep:#e7dccb;
+    --beige-line:#2b2b2b;  /* subtle divider on dark */
+    --card-line:#e2d8c8;   /* border for white cards */
+    --accent:#c2a878;      /* slightly brighter gold for dark bg */
+    --radius:18px;
+    --shadow:0 18px 50px -22px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#000000}
+  body{
+    font-family:"Georgia","Times New Roman",serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+    display:flex;
+    min-height:100dvh;
+    justify-content:center;
+    padding:24px 18px calc(24px + env(safe-area-inset-bottom));
+  }
+  .sans{font-family:"Helvetica Neue",Arial,sans-serif}
+
+  .app{
+    width:100%;
+    max-width:560px;
+    margin:auto;
+    position:relative;
+  }
+
+  /* progress bar */
+  .progress-wrap{
+    height:4px;
+    background:#222;
+    border-radius:99px;
+    overflow:hidden;
+    margin-bottom:34px;
+    opacity:0;
+    transition:opacity .4s ease;
+  }
+  .progress-wrap.show{opacity:1}
+  .progress-bar{
+    height:100%;
+    width:0;
+    background:var(--accent);
+    border-radius:99px;
+    transition:width .5s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* screen transitions */
+  .screen{
+    display:none;
+    animation:fade .5s ease both;
+  }
+  .screen.active{display:block}
+  @keyframes fade{
+    from{opacity:0;transform:translateY(14px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .screen,.progress-bar,.opt,.btn{animation:none!important;transition:none!important}
+  }
+
+  .eyebrow{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.22em;
+    font-size:11px;
+    color:var(--accent);
+    font-weight:600;
+    margin-bottom:18px;
+  }
+
+  h1{
+    font-size:30px;
+    line-height:1.2;
+    font-weight:400;
+    letter-spacing:-.01em;
+    margin-bottom:18px;
+  }
+  .subtitle{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    color:var(--ink-soft);
+    margin-bottom:26px;
+    line-height:1.6;
+  }
+  .tiny{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    margin-bottom:34px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .tiny::before{
+    content:"";
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent);
+    display:inline-block;
+  }
+
+  /* intro panel */
+  .intro-card{
+    background:#0e0e0e;
+    border:1px solid var(--beige-line);
+    border-radius:var(--radius);
+    padding:40px 32px;
+    box-shadow:var(--shadow);
+  }
+
+  /* question */
+  .q-count{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .q-text{
+    color:#ffffff;
+    font-size:23px;
+    line-height:1.3;
+    font-weight:400;
+    margin-bottom:26px;
+    letter-spacing:-.01em;
+  }
+
+  .opts{display:flex;flex-direction:column;gap:12px}
+  .opt{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-align:left;
+    width:100%;
+    background:var(--card);
+    border:1px solid var(--card-line);
+    border-radius:14px;
+    padding:17px 18px;
+    font-size:15.5px;
+    color:var(--card-ink);
+    cursor:pointer;
+    transition:border-color .2s ease, background .2s ease, transform .12s ease;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    line-height:1.45;
+  }
+  .opt .mark{
+    flex:0 0 24px;
+    width:24px;height:24px;
+    border:1px solid var(--beige-deep);
+    border-radius:50%;
+    font-size:12px;
+    font-weight:600;
+    color:var(--card-ink-soft);
+    display:flex;align-items:center;justify-content:center;
+    transition:all .2s ease;
+    margin-top:1px;
+  }
+  .opt:hover{border-color:var(--accent);background:#fbf7ef}
+  .opt:hover .mark{border-color:var(--accent);color:var(--accent)}
+  .opt.selected{border-color:var(--accent);background:#f3ece2}
+  .opt.selected .mark{background:var(--accent);border-color:var(--accent);color:#fff}
+  .opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .opt:active{transform:scale(.99)}
+
+  /* nav */
+  .nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:28px;
+  }
+  .back{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    background:none;border:none;
+    color:var(--ink-soft);
+    font-size:14px;
+    cursor:pointer;
+    padding:8px 4px;
+    letter-spacing:.02em;
+  }
+  .back:hover{color:var(--ink)}
+  .back[disabled]{opacity:0;pointer-events:none}
+
+  /* buttons */
+  .btn{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    background:var(--accent);
+    color:#111;
+    border:none;
+    border-radius:99px;
+    padding:16px 30px;
+    font-size:15px;
+    font-weight:500;
+    letter-spacing:.02em;
+    cursor:pointer;
+    transition:transform .15s ease, background .2s ease;
+    text-decoration:none;
+    width:100%;
+  }
+  .btn:hover{background:#d4bd8f;transform:translateY(-1px)}
+  .btn:active{transform:translateY(0)}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid #444}
+  .btn.ghost:hover{background:#161616;transform:none}
+
+  /* form */
+  .form-card{
+    background:#0e0e0e;
+    border:1px solid var(--beige-line);
+    border-radius:var(--radius);
+    padding:38px 30px;
+    box-shadow:var(--shadow);
+  }
+  .field{margin-bottom:16px}
+  .field label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    display:block;
+    font-size:12.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .field input{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    width:100%;
+    padding:14px 16px;
+    border:1px solid #333;
+    border-radius:12px;
+    font-size:16px;
+    background:#161616;
+    color:var(--ink);
+    transition:border-color .2s ease;
+  }
+  .field input:focus{outline:none;border-color:var(--accent)}
+  .form-note{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:16px;
+    text-align:center;
+    line-height:1.5;
+  }
+  .err{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12.5px;
+    color:#9a4b2f;
+    margin-top:4px;
+    display:none;
+  }
+  .err.show{display:block}
+
+  /* result */
+  .result-card{
+    text-align:center;
+    padding-top:8px;
+  }
+  .result-badge{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    font-size:11px;
+    color:var(--accent);
+    font-weight:600;
+    margin-bottom:18px;
+  }
+  .result-emblem{
+    width:74px;height:74px;
+    margin:0 auto 24px;
+    border-radius:50%;
+    background:#141414;
+    border:1px solid #333;
+    display:flex;align-items:center;justify-content:center;
+    font-size:30px;
+    color:var(--accent);
+  }
+  .result-title{
+    font-size:27px;
+    line-height:1.25;
+    font-weight:400;
+    margin-bottom:18px;
+    letter-spacing:-.01em;
+  }
+  .result-desc{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    color:var(--card-ink-soft);
+    line-height:1.65;
+    margin-bottom:32px;
+    text-align:left;
+    background:var(--card);
+    border:1px solid var(--card-line);
+    border-radius:14px;
+    padding:22px 22px;
+  }
+  .result-actions{display:flex;flex-direction:column;gap:12px}
+  .restart{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    background:none;border:none;
+    color:var(--ink-soft);
+    font-size:13.5px;
+    cursor:pointer;
+    margin-top:6px;
+    letter-spacing:.02em;
+    text-decoration:underline;
+    text-underline-offset:3px;
+  }
+  .restart:hover{color:var(--ink)}
+
+  @media (max-width:480px){
+    h1{font-size:26px}
+    .q-text{font-size:21px}
+    .intro-card,.form-card{padding:30px 22px}
+    .result-title{font-size:24px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="screen active" id="screen-intro">
+    <div class="intro-card">
+      <div class="eyebrow">Income Clarity Quiz</div>
+      <h1>What Is Really Stopping You From Reaching Stable Income?</h1>
+      <p class="subtitle">Answer 10 questions and discover what is currently blocking your growth: your niche, promotion strategy, system, visibility, or information overload.</p>
+      <p class="tiny">Time to complete: 3 minutes</p>
+      <button class="btn" id="startBtn">Start the Quiz</button>
+    </div>
+  </section>
+
+  <!-- QUESTION -->
+  <section class="screen" id="screen-question">
+    <div class="q-count" id="qCount"></div>
+    <h2 class="q-text" id="qText"></h2>
+    <div class="opts" id="qOpts"></div>
+    <div class="nav">
+      <button class="back" id="backBtn">← Back</button>
+    </div>
+  </section>
+
+  <!-- CAPTURE -->
+  <section class="screen" id="screen-capture">
+    <div class="form-card">
+      <div class="eyebrow">Almost there</div>
+      <h1 style="font-size:25px">Where should we send your result?</h1>
+      <p class="subtitle">Enter your details to reveal what is blocking your stable income.</p>
+
+      <div class="field">
+        <label for="nameInput">Name</label>
+        <input type="text" id="nameInput" autocomplete="name" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="emailInput">Email</label>
+        <input type="email" id="emailInput" autocomplete="email" placeholder="you@email.com">
+        <div class="err" id="emailErr">Please enter a valid email address.</div>
+      </div>
+
+      <button class="btn" id="showResultBtn">Show My Result</button>
+      <p class="form-note">No spam. Just your personalized breakdown.</p>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen" id="screen-result">
+    <div class="result-card">
+      <div class="result-badge">Your Result</div>
+      <div class="result-emblem" id="resultEmblem">✦</div>
+      <h2 class="result-title" id="resultTitle"></h2>
+      <p class="result-desc" id="resultDesc"></p>
+      <div class="result-actions">
+        <a class="btn" id="resultLink" href="#" target="_blank" rel="noopener">Get My Full Result Breakdown →</a>
+      </div>
+      <button class="restart" id="restartBtn">Restart the quiz</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ===========================================================
+     NOTION LINKS — replace these five values later.
+     =========================================================== */
+  /* ===========================================================
+     MAKE.COM WEBHOOK — receives name, email, result.
+     Replace the URL if your Make webhook ever changes.
+     =========================================================== */
+  var WEBHOOK_URL = "https://hook.eu2.make.com/4ubcd32esach3669u3cbybivuy7cat2p";
+
+  /* Maps the internal A-E key to a readable result slug,
+     used by Make's Router to pick the correct email. */
+  var RESULT_SLUG = {
+    A: "niche",
+    B: "promotion",
+    C: "system",
+    D: "visibility",
+    E: "focus"
+  };
+
+  var NOTION_LINKS = {
+    A: "https://boiling-existence-0a4.notion.site/Your-Result-Wrong-Niche-7c9c7fb5459a821bbbb401dffc0f953f",                                       // Wrong niche      (#niche)
+    B: "https://boiling-existence-0a4.notion.site/f67c7fb5459a8254ae3a015481164e72?v=0b4c7fb5459a82d8ac1608c44a2375ca&source=copy_link",          // Wrong promotion  (#promotion)
+    C: "https://boiling-existence-0a4.notion.site/9aac7fb5459a837a861681c501cd62fa?v=39fc7fb5459a8251b91b08368d02eb08&source=copy_link",          // Lack of system   (#system)
+    D: "https://boiling-existence-0a4.notion.site/1cac7fb5459a82878c81018133de8f7c?v=05ec7fb5459a8306b0ab884fb4691ff1&source=copy_link",          // Fear of visibility (#visibility)
+    E: "https://boiling-existence-0a4.notion.site/08bc7fb5459a823985550109c41a9385?v=d70c7fb5459a838db457080015f8edca&source=copy_link"           // Information overload (#focus)
+  };
+
+  /* ----------------------------- Data ----------------------------- */
+  var QUESTIONS = [
+    {q:"When you think about increasing your income, what feels the most difficult?",
+     a:["I don’t know what exactly to sell",
+        "I don’t know how to find clients",
+        "I don’t have a clear action plan",
+        "I’m afraid to put myself out there",
+        "I study too much and can’t choose one direction"]},
+    {q:"What usually happens when you start a new idea?",
+     a:["After a while, I realize it doesn’t feel like me",
+        "I don’t know how to promote it",
+        "I start with energy but quickly lose structure",
+        "I postpone posting, selling, or showing up",
+        "I start looking for even more information"]},
+    {q:"If you had to make your first money online tomorrow, what would feel the hardest?",
+     a:["Understanding what product or service to create",
+        "Finding people who need it",
+        "Organizing the sales process",
+        "Showing up and talking about my offer",
+        "Choosing one path from too many options"]},
+    {q:"Which thought comes up most often?",
+     a:["“I don’t know what my real value is”",
+        "“I don’t understand how to sell”",
+        "“I need a clear plan”",
+        "“What will people think of me?”",
+        "“I need to figure out more first”"]},
+    {q:"What is slowing down your growth the most?",
+     a:["Uncertainty around my niche",
+        "Lack of clients",
+        "Chaotic actions",
+        "Fear of being visible",
+        "Constant doubt from too much information"]},
+    {q:"What happens with your content or promotion?",
+     a:["I don’t know what to talk about",
+        "I create content, but it doesn’t bring clients",
+        "I lack consistency and strategy",
+        "I’m afraid to post",
+        "I have too many ideas and can’t choose"]},
+    {q:"Which situation feels closest to you?",
+     a:["I’ve tried different niches, but none of them stuck",
+        "I have an idea or product, but no stable sales",
+        "I know what I should do, but I don’t follow through",
+        "I want to show up, but I hold myself back",
+        "I constantly save posts, courses, and videos but don’t act"]},
+    {q:"What would help you the most right now?",
+     a:["Understanding my niche and strengths",
+        "Choosing a promotion strategy that fits me",
+        "Getting a daily action system",
+        "Removing the fear of visibility",
+        "Filtering out noise and choosing one clear path"]},
+    {q:"What result do you want first?",
+     a:["To understand what exactly I should sell",
+        "To understand how to attract clients",
+        "To build a stable income system",
+        "To start showing up confidently",
+        "To gain clarity and focus"]},
+    {q:"Which phrase describes you best?",
+     a:["“I want to find my profitable niche”",
+        "“I want to find my promotion strategy”",
+        "“I want a monetization system”",
+        "“I want to stop being afraid of visibility”",
+        "“I want to stop drowning in information”"]}
+  ];
+
+  var LETTERS = ["A","B","C","D","E"];
+
+  var RESULTS = {
+    A:{emblem:"◈", title:"Wrong Niche",
+       desc:"Most likely, you are trying to build income around a direction that does not match your strengths, experience, or natural value. That is why it feels hard to stay focused, create content, and turn ideas into sales."},
+    B:{emblem:"◇", title:"Wrong Promotion Strategy",
+       desc:"You may have a strong idea or product, but your current promotion strategy does not fit your personality, energy, audience, or offer. Because of that, sales do not become stable."},
+    C:{emblem:"◆", title:"Lack of System",
+       desc:"You may know what to do, but without a system, your actions stay chaotic. Income does not become stable because there is no clear process for what to do daily, how to attract clients, and how to lead them to purchase."},
+    D:{emblem:"❖", title:"Fear of Visibility",
+       desc:"Your growth may be blocked not by a lack of knowledge, but by the fear of being seen. You may postpone content, sales, and public steps because you fear judgment, criticism, or making mistakes."},
+    E:{emblem:"✦", title:"Information Overload",
+       desc:"You do not need more information. You need clarity. Right now, too many ideas, courses, and strategies are preventing you from choosing one path and taking consistent action."}
+  };
+
+  /* ----------------------------- State ----------------------------- */
+  var answers = new Array(QUESTIONS.length).fill(null); // store "A".."E"
+  var current = 0;
+
+  /* ----------------------------- Elements ----------------------------- */
+  var el = function(id){return document.getElementById(id);};
+  var screens = {
+    intro: el("screen-intro"),
+    question: el("screen-question"),
+    capture: el("screen-capture"),
+    result: el("screen-result")
+  };
+  var progressWrap = el("progressWrap");
+  var progressBar  = el("progressBar");
+
+  function show(name){
+    Object.keys(screens).forEach(function(k){
+      screens[k].classList.toggle("active", k===name);
+    });
+    progressWrap.classList.toggle("show", name==="question");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  /* ----------------------------- Render question ----------------------------- */
+  function renderQuestion(){
+    var Q = QUESTIONS[current];
+    el("qCount").textContent = "Question " + (current+1) + " of " + QUESTIONS.length;
+    el("qText").textContent = Q.q;
+
+    var pct = (current/QUESTIONS.length)*100;
+    progressBar.style.width = pct + "%";
+
+    var wrap = el("qOpts");
+    wrap.innerHTML = "";
+    Q.a.forEach(function(text, i){
+      var L = LETTERS[i];
+      var b = document.createElement("button");
+      b.className = "opt" + (answers[current]===L ? " selected" : "");
+      b.type = "button";
+      b.innerHTML = '<span class="mark">'+L+'</span><span>'+text+'</span>';
+      b.addEventListener("click", function(){
+        answers[current] = L;
+        // brief visual confirm, then advance
+        Array.prototype.forEach.call(wrap.children, function(c){c.classList.remove("selected");});
+        b.classList.add("selected");
+        setTimeout(next, 230);
+      });
+      wrap.appendChild(b);
+    });
+
+    el("backBtn").disabled = (current===0);
+  }
+
+  function next(){
+    if(current < QUESTIONS.length-1){
+      current++;
+      renderQuestion();
+    } else {
+      progressBar.style.width = "100%";
+      show("capture");
+    }
+  }
+  function back(){
+    if(current>0){current--; renderQuestion();}
+  }
+
+  /* ----------------------------- Scoring ----------------------------- */
+  function computeResult(){
+    var tally = {A:0,B:0,C:0,D:0,E:0};
+    answers.forEach(function(L){ if(L) tally[L]++; });
+
+    var max = -1;
+    LETTERS.forEach(function(L){ if(tally[L]>max) max = tally[L]; });
+
+    var leaders = LETTERS.filter(function(L){ return tally[L]===max; });
+
+    // Tie-break: prioritize the answer from question 9 (index 8)
+    if(leaders.length > 1){
+      var q9 = answers[8];
+      if(q9 && leaders.indexOf(q9) !== -1){
+        return q9;
+      }
+      // fallback: first leader in A..E order
+      return leaders[0];
+    }
+    return leaders[0];
+  }
+
+  /* ----------------------------- Send lead to Make ----------------------------- */
+  function sendToWebhook(key){
+    if(!WEBHOOK_URL){ return; }
+    var payload = {
+      name:   (el("nameInput").value || "").trim(),
+      email:  (el("emailInput").value || "").trim(),
+      result: RESULT_SLUG[key],          // niche / promotion / system / visibility / focus
+      result_title: RESULTS[key].title,  // e.g. "Wrong Niche"
+      notion_link: NOTION_LINKS[key],    // the matching Notion URL
+      submitted_at: new Date().toISOString()
+    };
+    // Fire-and-forget; we don't block the result screen on the network.
+    try {
+      fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function(){ /* ignore network errors, result still shows */ });
+    } catch(e){ /* ignore */ }
+  }
+
+  function renderResult(){
+    var key = computeResult();
+    var R = RESULTS[key];
+    sendToWebhook(key);
+    el("resultEmblem").textContent = R.emblem;
+    el("resultTitle").textContent = "Your Result: " + R.title;
+    el("resultDesc").textContent = R.desc;
+    el("resultLink").setAttribute("href", NOTION_LINKS[key]);
+    show("result");
+  }
+
+  /* ----------------------------- Email validation ----------------------------- */
+  function validEmail(v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  /* ----------------------------- Wire up ----------------------------- */
+  el("startBtn").addEventListener("click", function(){
+    current = 0;
+    renderQuestion();
+    show("question");
+  });
+
+  el("backBtn").addEventListener("click", back);
+
+  el("showResultBtn").addEventListener("click", function(){
+    var email = el("emailInput").value.trim();
+    var errBox = el("emailErr");
+    // Email is optional per "optional capture", but if filled it must be valid.
+    if(email && !validEmail(email)){
+      errBox.classList.add("show");
+      el("emailInput").focus();
+      return;
+    }
+    errBox.classList.remove("show");
+    // (Name + email available here in el("nameInput").value / email for future integration.)
+    renderResult();
+  });
+
+  el("emailInput").addEventListener("input", function(){
+    el("emailErr").classList.remove("show");
+  });
+
+  el("restartBtn").addEventListener("click", function(){
+    answers = new Array(QUESTIONS.length).fill(null);
+    current = 0;
+    el("nameInput").value = "";
+    el("emailInput").value = "";
+    progressBar.style.width = "0%";
+    show("intro");
+  });
+
+})();
+</script>
+</body>
+</html>
