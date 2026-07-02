@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оффер и портрет клиента</title>
+<style>
+  :root{
+    --bg:#0e0e0f;
+    --card:#161618;
+    --line:#26262a;
+    --text:#eaeae6;
+    --muted:#9a9a95;
+    --accent:#c9a86a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+    padding:48px 20px;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  h1{
+    font-size:30px;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    margin-bottom:8px;
+  }
+  .sub{color:var(--muted);font-size:15px;margin-bottom:40px}
+  section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:28px;
+    margin-bottom:20px;
+  }
+  h2{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    color:var(--accent);
+    margin-bottom:18px;
+    font-weight:600;
+  }
+  h3{font-size:18px;font-weight:600;margin:22px 0 10px}
+  h3:first-of-type{margin-top:0}
+  p{margin-bottom:14px}
+  .lead{
+    font-size:20px;
+    font-weight:500;
+    line-height:1.5;
+    border-left:3px solid var(--accent);
+    padding-left:18px;
+    color:#fff;
+  }
+  ul{list-style:none;margin:6px 0 14px}
+  li{position:relative;padding-left:22px;margin-bottom:10px}
+  li:before{
+    content:"";
+    position:absolute;left:2px;top:11px;
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent);
+  }
+  .pillars li{padding-left:0}
+  .pillars li:before{display:none}
+  .pillars li{
+    padding:14px 16px;
+    background:#1d1d20;
+    border-radius:10px;
+    border:1px solid var(--line);
+  }
+  .pillars b{color:#fff}
+  .muted{color:var(--muted)}
+  strong{color:#fff}
+  .hook{
+    background:#1d1d20;
+    border:1px dashed var(--accent);
+    border-radius:12px;
+    padding:18px;
+    font-size:17px;
+    color:#fff;
+  }
+  .buy{
+    margin-top:8px;
+    padding:16px;
+    background:#1d1d20;
+    border-radius:12px;
+    border:1px solid var(--line);
+  }
+  .buy b{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Оффер и портрет клиента</h1>
+  <p class="sub">Основной фокус — частный владелец виллы / пентхауса</p>
+
+  <section>
+    <h2>Ваш оффер</h2>
+
+    <h3>Короткая формула</h3>
+    <p class="lead">Итальянская мебель по фабричным ценам с проектом, просчитанным архитектором до последней детали — вы заранее знаете что, как и сколько, без переплат и сюрпризов.</p>
+
+    <h3>Расширенный оффер</h3>
+    <p>Мы меблируем виллы и премиум-квартиры под ключ. Наш архитектор просчитывает проект по деталям — материалы, размеры, количество, стыковки — так что у вас не остаётся ни одного открытого вопроса. Мебель поставляем напрямую с итальянских фабрик по фабричным ценам, без наценки салонов. Один менеджер ведёт весь проект от спецификации до доставки и растаможки.</p>
+
+    <h3>Три опоры оффера</h3>
+    <ul class="pillars">
+      <li><b>Фабричные цены.</b> Прямые поставки с итальянских фабрик — вы не платите салонную наценку.</li>
+      <li><b>Просчёт до детали.</b> Архитектор закрывает все вопросы заранее — предсказуемый бюджет и сроки, никаких «посчитали одно, вышло другое».</li>
+      <li><b>Под ключ, один контакт.</b> Проект → спецификация → мебель → растаможка → доставка. Вы не вникаете в логистику.</li>
+    </ul>
+
+    <h3>Оффер-крючок</h3>
+    <p class="hook">Бесплатный детальный просчёт вашего проекта — покажем, сколько вы сэкономите на фабричных ценах, ещё до старта.</p>
+  </section>
+
+  <section>
+    <h2>Ваш клиент</h2>
+
+    <h3>Ядро</h3>
+    <p>Частный владелец виллы или премиум-квартиры, который только что купил / строит жильё и хочет премиальный интерьер без переплат и без погружения в процесс.</p>
+
+    <h3>Портрет</h3>
+    <ul>
+      <li>Купил дорогую недвижимость, впереди меблировка.</li>
+      <li>Ценит время и не хочет вникать в логистику, растаможку, поиск фабрик.</li>
+      <li>Хочет премиум-уровень (итальянские бренды), но не готов переплачивать салонам.</li>
+      <li>Боится главного: что бюджет поедет, что-то забудут, сроки сорвутся.</li>
+    </ul>
+
+    <h3>Его боль</h3>
+    <ul>
+      <li>«Не знаю, кому доверить — чтобы сделали красиво и честно посчитали».</li>
+      <li>«Боюсь, что салон накрутит в 2–3 раза».</li>
+      <li>«Не хочу сам считать материалы и разбираться с доставкой из Италии».</li>
+    </ul>
+
+    <div class="buy">
+      <b>Что он покупает у вас:</b> не мебель — <strong>спокойствие и отсутствие переплат</strong>. Всё просчитано, цена фабричная, вопросов не остаётся.
+    </div>
+
+    <h3>Где он есть</h3>
+    <ul>
+      <li>Через <strong>риелторов премиум-недвижимости</strong> — они рядом с ним в момент покупки (главный канал).</li>
+      <li>Instagram — проверяет ваш уровень перед разговором.</li>
+      <li>Личные рекомендации, нетворкинг в кругах владельцев дорогого жилья.</li>
+    </ul>
+
+    <h3>Второй клиент (позже, на разгон)</h3>
+    <p class="muted">Девелопер премиум-жилья — для него точная спецификация = предсказуемый бюджет на весь объект, а фабричные цены = маржа с количества.</p>
+  </section>
+
+</div>
+</body>
+</html>
