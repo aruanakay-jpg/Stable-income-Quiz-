@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оффер и портрет клиента</title>
+<style>
+  :root{
+    --bg:#0e0e0f;
+    --card:#161618;
+    --line:#26262a;
+    --text:#eaeae6;
+    --muted:#9a9a95;
+    --accent:#c9a86a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+    padding:48px 20px;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  h1{
+    font-size:30px;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    margin-bottom:8px;
+  }
+  .sub{color:var(--muted);font-size:15px;margin-bottom:40px}
+  section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:28px;
+    margin-bottom:20px;
+  }
+  h2{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    color:var(--accent);
+    margin-bottom:18px;
+    font-weight:600;
+  }
+  h3{font-size:18px;font-weight:600;margin:22px 0 10px}
+  h3:first-of-type{margin-top:0}
+  p{margin-bottom:14px}
+  .lead{
+    font-size:20px;
+    font-weight:500;
+    line-height:1.5;
+    border-left:3px solid var(--accent);
+    padding-left:18px;
+    color:#fff;
+  }
+  ul{list-style:none;margin:6px 0 14px}
+  li{position:relative;padding-left:22px;margin-bottom:10px}
+  li:before{
+    content:"";
+    position:absolute;left:2px;top:11px;
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent);
+  }
+  .pillars li{padding-left:0}
+  .pillars li:before{display:none}
+  .pillars li{
+    padding:14px 16px;
+    background:#1d1d20;
+    border-radius:10px;
+    border:1px solid var(--line);
+  }
+  .pillars b{color:#fff}
+  .muted{color:var(--muted)}
+  strong{color:#fff}
+  .hook{
+    background:#1d1d20;
+    border:1px dashed var(--accent);
+    border-radius:12px;
+    padding:18px;
+    font-size:17px;
+    color:#fff;
+  }
+  .buy{
+    margin-top:8px;
+    padding:16px;
+    background:#1d1d20;
+    border-radius:12px;
+    border:1px solid var(--line);
+  }
+  .buy b{color:var(--accent)}
+  .seg{
+    padding:18px;
+    background:#1d1d20;
+    border:1px solid var(--line);
+    border-radius:12px;
+    margin-bottom:14px;
+  }
+  .seg .tag{
+    display:inline-block;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    border:1px solid var(--accent);
+    border-radius:20px;
+    padding:3px 12px;
+    margin-bottom:10px;
+  }
+  .seg h4{font-size:16px;margin-bottom:8px;color:#fff}
+  .seg p{margin-bottom:8px;font-size:15px}
+  .seg .pain{color:var(--muted);font-size:14px}
+  .plat{
+    display:flex;
+    gap:14px;
+    padding:14px 16px;
+    background:#1d1d20;
+    border:1px solid var(--line);
+    border-radius:10px;
+    margin-bottom:10px;
+  }
+  .plat .name{color:#fff;font-weight:600;min-width:130px;flex-shrink:0}
+  .plat .how{color:var(--muted);font-size:14px}
+  .week{
+    padding:18px;
+    background:#1d1d20;
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    border-radius:10px;
+    margin-bottom:14px;
+  }
+  .week .wk{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--accent);
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .week h4{font-size:17px;margin-bottom:10px;color:#fff}
+  .week ul{margin:0}
+  .week li{font-size:14px}
+  .goal{
+    margin-top:8px;
+    padding:16px 18px;
+    background:linear-gradient(90deg,#241f14,#1d1d20);
+    border:1px solid var(--accent);
+    border-radius:12px;
+    color:#fff;
+    font-size:16px;
+  }
+  .goal b{color:var(--accent)}
+  .metric{color:var(--muted);font-size:13px;margin-top:6px}
+  .guar{
+    padding:16px 18px;
+    background:#1d1d20;
+    border:1px solid var(--line);
+    border-radius:12px;
+    margin-bottom:12px;
+  }
+  .guar h4{font-size:16px;color:#fff;margin-bottom:6px}
+  .guar p{margin:0;font-size:14px;color:var(--muted)}
+  .italy{
+    text-align:center;
+    padding:26px;
+    background:linear-gradient(135deg,#1f2a1c,#1d1d20,#2a1c1c);
+    border:1px solid var(--accent);
+    border-radius:14px;
+    margin-top:8px;
+  }
+  .italy .flag{font-size:22px;letter-spacing:0.3em;margin-bottom:10px}
+  .italy .big{font-size:22px;font-weight:700;color:#fff;letter-spacing:0.02em}
+  .italy p{color:var(--muted);font-size:14px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Оффер и портрет клиента</h1>
+  <p class="sub">Основной фокус — частный владелец виллы / пентхауса</p>
+
+  <section>
+    <h2>Ваш оффер</h2>
+
+    <h3>Короткая формула</h3>
+    <p class="lead">Итальянская мебель по фабричным ценам с проектом, просчитанным архитектором до последней детали — вы заранее знаете что, как и сколько, без переплат и сюрпризов.</p>
+
+    <h3>Расширенный оффер</h3>
+    <p>Мы меблируем виллы и премиум-квартиры под ключ. Наш архитектор просчитывает проект по деталям — материалы, размеры, количество, стыковки — так что у вас не остаётся ни одного открытого вопроса. Мебель поставляем напрямую с итальянских фабрик по фабричным ценам, без наценки салонов. Один менеджер ведёт весь проект от спецификации до доставки и растаможки.</p>
+
+    <h3>Три опоры оффера</h3>
+    <ul class="pillars">
+      <li><b>Фабричные цены.</b> Прямые поставки с итальянских фабрик — вы не платите салонную наценку.</li>
+      <li><b>Просчёт до детали.</b> Архитектор закрывает все вопросы заранее — предсказуемый бюджет и сроки, никаких «посчитали одно, вышло другое».</li>
+      <li><b>Под ключ, один контакт.</b> Проект → спецификация → мебель → растаможка → доставка. Вы не вникаете в логистику.</li>
+    </ul>
+
+    <h3>Оффер-крючок</h3>
+    <p class="hook">Бесплатный детальный просчёт вашего проекта — покажем, сколько вы сэкономите на фабричных ценах, ещё до старта.</p>
+  </section>
+
+  <section>
+    <h2>Кто ваши клиенты</h2>
+
+    <div class="seg">
+      <span class="tag">Клиент №1 — ядро</span>
+      <h4>Частный владелец виллы / пентхауса</h4>
+      <p>Только что купил или строит дорогое жильё, впереди меблировка. Хочет премиум-интерьер, но без переплат салонам и без погружения в логистику. Ценит время и результат больше, чем процесс.</p>
+      <p class="pain"><strong style="color:#c9a86a">Боль:</strong> «Боюсь, что салон накрутит в 2–3 раза». «Не знаю, кому доверить — чтобы сделали красиво и честно посчитали». «Не хочу сам считать материалы и разбираться с доставкой из Италии».</p>
+    </div>
+
+    <div class="seg">
+      <span class="tag">Клиент №2 — на разгон</span>
+      <h4>Дизайнер интерьера / архитектор</h4>
+      <p>Ведёт проекты состоятельных клиентов, но не хочет сам возиться с закупкой, спецификацией и растаможкой мебели. Вы становитесь его подрядчиком по поставке — он приводит вам поток проектов.</p>
+      <p class="pain"><strong style="color:#c9a86a">Боль:</strong> «Нужен надёжный поставщик, который не подведёт по срокам и не испортит мне репутацию перед клиентом». «Хочу отдать закупку и не думать о фабриках».</p>
+    </div>
+
+    <div class="seg">
+      <span class="tag">Клиент №3 — маржа с объёма</span>
+      <h4>Девелопер премиум-жилья</h4>
+      <p>Строит и сдаёт виллы / апартаменты. Для него точная спецификация = предсказуемый бюджет на весь объект, а фабричные цены = маржа с количества. Один контракт = десятки единиц мебели.</p>
+      <p class="pain"><strong style="color:#c9a86a">Боль:</strong> «Нужно меблировать объект под сдачу быстро, качественно и в бюджет — без сюрпризов по деньгам и срокам».</p>
+    </div>
+
+    <div class="buy">
+      <b>Что все они покупают у вас:</b> не мебель — <strong>спокойствие, предсказуемость и отсутствие переплат</strong>. Всё просчитано, цена фабричная, вопросов не остаётся.
+    </div>
+  </section>
+
+  <section>
+    <h2>Где их искать и на каких платформах</h2>
+
+    <div class="plat">
+      <span class="name">Риелторы премиум</span>
+      <span class="how">Главный канал. Они рядом с клиентом в момент покупки. Прямой аутрич + партнёрство за % / реферал.</span>
+    </div>
+    <div class="plat">
+      <span class="name">Instagram</span>
+      <span class="how">Витрина уровня. Ленты проектов «до/после», фабрики, процесс просчёта. Клиент проверяет вас здесь перед разговором. Таргет на Дубай + богатые районы.</span>
+    </div>
+    <div class="plat">
+      <span class="name">Дизайнеры / студии</span>
+      <span class="how">Прямой аутрич в DM и по email. Ищите по хэштегам #interiordesigndubai, в базах студий, на выставках.</span>
+    </div>
+    <div class="plat">
+      <span class="name">LinkedIn</span>
+      <span class="how">Выход на девелоперов и застройщиков. Прямые сообщения decision-maker'ам, контент про фабричные поставки и бюджеты.</span>
+    </div>
+    <div class="plat">
+      <span class="name">Нетворкинг офлайн</span>
+      <span class="how">Мероприятия по недвижимости и luxury-ивенты в Дубае, шоурумы, брокерские офисы. Личные рекомендации в кругах владельцев дорогого жилья.</span>
+    </div>
+    <div class="plat">
+      <span class="name">Google / сайт</span>
+      <span class="how">Лендинг под оффер + запросы «итальянская мебель Дубай», «меблировка виллы под ключ». Ловит горячий спрос.</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Стратегия на месяц — до первой сделки</h2>
+    <p class="muted" style="margin-bottom:20px">Фокус: не распыляться. Один сильный канал (риелторы) + витрина (Instagram) + быстрый оффер-крючок. Цель месяца — не «набрать аудиторию», а закрыть первую сделку.</p>
+
+    <div class="week">
+      <div class="wk">Неделя 1 — Фундамент</div>
+      <h4>Собрать точку входа и оффер</h4>
+      <ul>
+        <li>Готов лендинг под оффер + оффер-крючок (бесплатный детальный просчёт).</li>
+        <li>Instagram оформлен: 6–9 постов проектов, фабрик, процесса. Видно уровень.</li>
+        <li>Собран список: 40–60 риелторов премиум-недвижимости в Дубае (имя + контакт).</li>
+        <li>Готов шаблон первого сообщения риелтору и клиенту.</li>
+      </ul>
+    </div>
+
+    <div class="week">
+      <div class="wk">Неделя 2 — Первый контакт</div>
+      <h4>Запустить аутрич</h4>
+      <ul>
+        <li>20–30 персональных сообщений риелторам: предложение партнёрства + реферальный %.</li>
+        <li>10–15 сообщений дизайнерам / студиям в DM.</li>
+        <li>Instagram: 3–4 поста + сторис процесса. Прогрев тех, кто зайдёт проверить.</li>
+        <li>Цель недели: 3–5 предметных диалогов, 1–2 согласия на просчёт.</li>
+      </ul>
+    </div>
+
+    <div class="week">
+      <div class="wk">Неделя 3 — Просчёты и доверие</div>
+      <h4>Показать ценность на деле</h4>
+      <ul>
+        <li>Сделать 2–3 бесплатных детальных просчёта по реальным запросам.</li>
+        <li>Показать экономию в цифрах: фабричная цена vs салонная. Это ваш главный аргумент.</li>
+        <li>Добить риелторов, кто не ответил (2-й касание). Запустить платный таргет на Instagram (Дубай, luxury).</li>
+        <li>Цель недели: 1–2 клиента на стадии «считаем условия сделки».</li>
+      </ul>
+    </div>
+
+    <div class="week">
+      <div class="wk">Неделя 4 — Закрытие</div>
+      <h4>Довести до первой сделки</h4>
+      <ul>
+        <li>Переговоры по горячим просчётам: снять последние возражения (сроки, гарантии, оплата).</li>
+        <li>Оформить понятное КП: спецификация → цена → сроки → под ключ.</li>
+        <li>Закрыть 1 сделку. Зафиксировать кейс (фото, экономия) — топливо для следующих.</li>
+        <li>Договориться о рекомендации / реферале от первого клиента.</li>
+      </ul>
+    </div>
+
+    <div class="goal">
+      <b>Цель месяца:</b> 1 закрытая сделка + 2–3 клиента в работе на следующий месяц + партнёрство с 2–4 риелторами.
+      <div class="metric">Ключевые метрики: 40+ контактов риелторам · 5+ бесплатных просчётов · 2+ горячих клиента · 1 сделка · 1 кейс.</div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
